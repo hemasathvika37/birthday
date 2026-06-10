@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ffccd5;
+            --glass: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            overflow-x: hidden;
+            color: #444;
+        }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: fixed;
+            color: var(--primary);
+            font-size: 20px;
+            pointer-events: none;
+            z-index: -1;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80') center/cover;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top:0; left:0; right:0; bottom:0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .hero-content {
+            z-index: 1;
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass);
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 5rem; margin: 0; }
+
+        /* The Envelope Section */
+        .gift-container {
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background: var(--primary);
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            width: 280px;
+            height: 180px;
+            background: white;
+            z-index: -1;
+            transition: 0.5s;
+            padding: 20px;
+            box-sizing: border-box;
+            font-size: 0.8rem;
+        }
+
+        .envelope.open .letter {
+            transform: translateY(-100px);
+            z-index: 2;
+            height: auto;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(255,77,109,0.3); }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Happy Birthday, [Name]!</h1>
+            <p>You make my world brighter every single day.</p>
+            <a href="#gift" class="btn">Open Your Surprise</a>
+        </div>
+    </section>
+
+    <section id="gift" class="gift-container">
+        <h2>A Little Note For You</h2>
+        <div class="envelope" onclick="this.classList.toggle('open')">
+            <div class="letter">
+                <h3>My Dearest [Name],</h3>
+                <p>Every moment with you is a gift. This website is just a small token of my love for you. I hope your day is as beautiful as your smile...</p>
+                <p>Forever Yours, <br> [Your Name]</p>
+            </div>
+        </div>
+        <p style="margin-top: 20px;">(Click the envelope to open)</p>
+    </section>
+
+    <script>
+        // Create Floating Hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 300);
+
+        // GSAP Animations for scroll
+        gsap.from(".hero-content", {opacity: 0, y: 50, duration: 1.5});
+    </script>
+</body>
+</html>
